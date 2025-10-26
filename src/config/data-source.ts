@@ -7,8 +7,7 @@ import { fileURLToPath } from 'url';
 
 dotenv.config({ quiet: true });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const currentDirname = path.join(process.cwd(), 'src/config');
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -20,7 +19,7 @@ export const AppDataSource = new DataSource({
   entities: [Task],
   synchronize: false, 
   logging: false,  
-  migrations: [__dirname + '/../migrations/*.ts'],
+  migrations: [currentDirname + '/../migrations/*.ts'],
 });
 
 
