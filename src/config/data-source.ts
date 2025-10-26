@@ -1,8 +1,14 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
+import { Task } from '../entities/Task.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config({ quiet: true });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -11,9 +17,10 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'todo_db',
-  entities: [],
+  entities: [Task],
   synchronize: false, 
-  logging: false,
+  logging: false,  
+  migrations: [__dirname + '/../migrations/*.ts'],
 });
 
-export default AppDataSource;
+

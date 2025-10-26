@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec \"node --loader ts-node/esm src/server.ts\"",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "typeorm": "node --loader ts-node/esm ./node_modules/typeorm/cli.js -d src/config/data-source.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "express": "^5.1.0",
     "mysql2": "^3.15.3",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.27"
+    "typeorm": "^0.3.27",
+    "zod": "^4.1.12"
   }
 }

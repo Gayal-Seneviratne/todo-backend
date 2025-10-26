@@ -1,9 +1,8 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import { TaskController } from '../controllers/task.controller.js';
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.send('Get all tasks');
-});
+router.post('/', TaskController.create); // POST /api/tasks
 
 export { router as default };

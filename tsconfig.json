@@ -35,7 +35,13 @@
       ],
       "@routes/*": [
         "routes/*"
-      ]     
+      ],
+      "@validations/*": [
+        "validations/*"
+      ],
+      "@enum/*": [
+        "enum/*"
+      ]
     }
   },
   "include": [
