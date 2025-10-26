@@ -3,6 +3,7 @@ import { AppDataSource } from '../../config/data-source.js';
 import { Task } from '../../entities/Task.js';
 import { TaskRepository } from '../task.repository.js';
 import { CreateTaskDto } from '../../dtos/create-task.dto.js';
+import { TaskStatus } from '../../enum/task-status.enum.js';
 
 
 export class TaskRepositoryImpl implements TaskRepository {
@@ -19,4 +20,13 @@ export class TaskRepositoryImpl implements TaskRepository {
         
         return await this.repo.save(task);
     } 
+
+
+    async listRecent(limit: number, status: TaskStatus = TaskStatus.PENDING): Promise<Task[]> {
+        return await this.repo.find({
+            where: { status },
+            order: { createdAt: 'DESC' },
+            take: limit,
+        });
+    }
 }
