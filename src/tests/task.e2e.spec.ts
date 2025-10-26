@@ -25,4 +25,11 @@ describe('Tasks API', () => {
       expect(res.status).toBe(200);
       expect(Array.isArray(res.body.data)).toBe(true);
     });
+
+
+    it('PATCH /api/tasks/:id/done should mark task as done', async () => {
+      const res = await request(app).patch(`/api/tasks/${createdId}/done`).send();
+      expect(res.status).toBe(200);
+      expect(res.body.data.status).toBe('DONE');
+    });
 });
