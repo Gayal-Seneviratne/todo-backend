@@ -40,8 +40,19 @@ async function ensureDatabaseExists(): Promise<void> {
   }
 
   AppDataSource.initialize()
-    .then(() => {
+    .then(async () => {
       console.log('Data source initialized');
+      try {
+        const migrations = await AppDataSource.runMigrations();
+        if (migrations.length) {
+          console.log(`Applied ${migrations.length} migration(s).`);
+        } else {
+          console.log('No migrations to apply.');
+        }
+      } catch (mErr) {
+        console.error('Failed to run migrations:', mErr);
+        // Intentionally continue to start the server; database might already be up-to-date
+      }
     })
     .catch((err) => {
       console.error('Failed to initialize data source:', err);      

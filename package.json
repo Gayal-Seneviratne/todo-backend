@@ -8,6 +8,10 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "typeorm": "node --loader ts-node/esm ./node_modules/typeorm/cli.js -d src/config/data-source.ts",
+    "migrate:run": "npm run typeorm -- migration:run",
+    "migrate:revert": "npm run typeorm -- migration:revert",
+    "migrate:generate": "npm run typeorm -- migration:generate",
+    "migrate:show": "npm run typeorm -- migration:show",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/jest/bin/jest.js --runInBand",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"

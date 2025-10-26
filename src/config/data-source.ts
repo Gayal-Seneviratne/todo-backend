@@ -7,7 +7,9 @@ import { fileURLToPath } from 'url';
 
 dotenv.config({ quiet: true });
 
-const currentDirname = path.join(process.cwd(), 'src/config');
+// Resolve the directory of this module both in TS (src) and compiled JS (dist)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const AppDataSource = new DataSource({
   type: 'mysql',
@@ -17,9 +19,10 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'todo_db',
   entities: [Task],
-  synchronize: false, 
-  logging: false,  
-  migrations: [currentDirname + '/../migrations/*.ts'],
+  synchronize: false,
+  logging: false,
+  // Support running migrations from TS in dev and JS in production
+  migrations: [path.join(__dirname, '../migrations/*.{ts,js}')],
 });
 
 
