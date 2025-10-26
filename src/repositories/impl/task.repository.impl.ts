@@ -29,4 +29,17 @@ export class TaskRepositoryImpl implements TaskRepository {
             take: limit,
         });
     }
+
+    async updateStatus(id: string, status: TaskStatus): Promise<Task | null> {
+        const task = await this.repo.findOne({ where: { id } });
+        if (!task) return null;
+        task.status = status;        
+        await this.repo.save(task);
+
+        return task;
+    }
+
+    async findById(id: string): Promise<Task | null> {
+        return await this.repo.findOne({ where: { id } });
+    }
 }

@@ -3,7 +3,7 @@ import { TaskService } from '../services/task.service.js';
 import { TaskServiceImpl } from '../services/impl/task.service.impl.js';
 import { CreateTaskSchema } from '../validations/task.schema.js';
 import { CreateTaskDto } from '../dtos/create-task.dto.js';
-
+import { UpdateTaskStatusSchema } from '../validations/task-status.schema.js';
 
 const taskService:TaskService  = new TaskServiceImpl();
 
@@ -27,5 +27,17 @@ export class TaskController {
         const tasks = await taskService.listRecentTasks(limit);
         res.json({ data: tasks });
         } catch (err) { next(err); }
+    }
+
+    static async markDone(req: Request, res: Response, next: NextFunction) {
+        try {
+            UpdateTaskStatusSchema.parse({ status: 'DONE' });
+            const { id } = req.params;
+            const updated = await taskService.markDone(id);
+
+            res.json({ data: updated });
+        } catch (err) {
+             next(err); 
+        }
     }
 }

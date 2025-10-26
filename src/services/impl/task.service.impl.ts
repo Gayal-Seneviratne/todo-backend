@@ -20,4 +20,16 @@ export class TaskServiceImpl implements TaskService {
     async listRecentTasks(limit: number, status: TaskStatus = TaskStatus.PENDING): Promise<Task[]> {
         return await this.repo.listRecent(limit, status);
     }
+
+    async markDone(id: string): Promise<Task> {
+        const updated = await this.repo.updateStatus(id, TaskStatus.DONE);
+
+        if (!updated) {
+            const err: any = new Error('Task not found');
+            err.status = 404;
+            throw err;
+        }
+        
+        return updated;
+    }
 }

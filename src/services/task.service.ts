@@ -5,4 +5,5 @@ import { Task } from '../entities/Task.js';
 export interface TaskService {
   createTask(data: CreateTaskDto): Promise<Task>;  
   listRecentTasks(limit: number, status?: TaskStatus): Promise<Task[]>;
+  markDone(id: string): Promise<Task>;
 }
