@@ -19,4 +19,10 @@ describe('Tasks API', () => {
       expect(res.body.data.id).toBeDefined();
       createdId = res.body.data.id;
     });  
+
+    it('GET /api/tasks should list recent tasks (pending)', async () => {
+      const res = await request(app).get('/api/tasks?limit=5');
+      expect(res.status).toBe(200);
+      expect(Array.isArray(res.body.data)).toBe(true);
+    });
 });
