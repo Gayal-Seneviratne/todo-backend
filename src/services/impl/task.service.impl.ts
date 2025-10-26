@@ -4,7 +4,7 @@ import { TaskRepository } from '../../repositories/task.repository.js';
 import { TaskRepositoryImpl } from '../../repositories/impl/task.repository.impl.js';
 import { TaskService } from '../task.service.js';
 import { TaskStatus } from '../../enum/task-status.enum.js';
-import { HttpError } from 'errors/http-error.js';
+import { HttpError } from '../../errors/http-error.js';
 
 export class TaskServiceImpl implements TaskService {
     private repo: TaskRepository;
@@ -31,6 +31,16 @@ export class TaskServiceImpl implements TaskService {
 
     async markDone(id: string): Promise<Task> {
         try {
+            //if task is already done?
+            await this.repo.findById(id).then(task => {
+                if (!task) {
+                    throw new HttpError('Task not found', 404);
+                }
+                if (task.status === TaskStatus.DONE) {  
+                    throw new HttpError('Task is already marked as done', 400);
+                }
+            });
+
             const updated = await this.repo.updateStatus(id, TaskStatus.DONE);
 
             if (!updated) {
