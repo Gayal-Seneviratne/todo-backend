@@ -7,8 +7,7 @@ import { UpdateTaskStatusSchema } from '../validations/task-status.schema.js';
 
 const taskService:TaskService  = new TaskServiceImpl();
 
-export class TaskController { 
-  
+export class TaskController {   
     static async create(req: Request, res: Response, next: NextFunction) {
         try {
         const parsed = CreateTaskSchema.parse(req.body);
