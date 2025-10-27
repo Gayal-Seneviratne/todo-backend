@@ -11,7 +11,7 @@ A simple **TypeScript + Express** backend for a Todo app using **TypeORM** and *
 
 1. Clone the repo and open the project:
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/Gayal-Seneviratne/todo-backend.git
    cd todo-backend
    ```
 
@@ -39,7 +39,7 @@ DB_PORT=3306
 DB_USERNAME=root
 DB_PASSWORD=your_db_password
 DB_NAME=todo_db
-PORT=4000
+PORT=4001
 ```
 
 > ✅ The database must exist before running the app.
@@ -85,12 +85,12 @@ docker build -t todo-backend .
 
 Run container:
 ```bash
-docker run --env-file .env -p 3000:3000 todo-backend
+docker run --env-file .env -p 4001:4001 todo-backend
 ```
 
 Or pass env inline:
 ```bash
-docker run -e DB_HOST=host.docker.internal -e DB_PORT=3306 -e DB_USERNAME=root -e DB_PASSWORD=your_pw -e DB_NAME=todo_db -p 3000:3000 todo-backend
+docker run -e DB_HOST=host.docker.internal -e DB_PORT=3306 -e DB_USERNAME=root -e DB_PASSWORD=your_pw -e DB_NAME=todo_db -p 4001:4001 todo-backend
 ```
 
 ---
