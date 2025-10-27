@@ -6,7 +6,7 @@ import mysql from 'mysql2/promise';
 
 dotenv.config({ quiet: true });
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 
 async function ensureDatabaseExists(): Promise<void> {
   const host = process.env.DB_HOST || 'localhost';
